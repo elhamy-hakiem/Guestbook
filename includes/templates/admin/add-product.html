@@ -1,0 +1,87 @@
+<!-- Start header Content  -->
+<?php include ("../includes/templates/admin/header.html");?>
+<!-- End header Content  -->
+
+        <!-- Start Sidebar Content  -->
+        <?php include ("../includes/templates/admin/sidebar.html");?>
+        <!-- End Sidebar Content  -->
+
+        <!-- Start Page Content  -->
+        <div class="admin-panel__content">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-header">
+                        <h1>Add Product</h1>
+                    </div>
+                    <!-- Start Show Alert Messages  -->
+                    <?php 
+                        if(! empty($addErrors)) 
+                        { 
+                            foreach($addErrors as $error)
+                            {
+                                echo ' <div class="alert alert-danger">
+                                            <p>'.$error.'</p>
+                                        </div>';
+                            }
+                        }
+                    ?>
+                    <?php 
+                        if(! empty($successMsg)) 
+                        { 
+                            echo ' <div class="alert alert-success">
+                                        <p>'.$successMsg.'</p>
+                                    </div>';
+                        }
+                    ?>
+                </div>
+                <div class="col-md-8">
+                    <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'].'?action=Add';?>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="product-title" class="col-sm-3 control-label">Product Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="product-title" name="title" placeholder="Product Title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-desc" class="col-sm-3 control-label">Product Description</label>
+                            <div class="col-sm-9">
+                                <textarea rows="6" class="form-control" id="product-desc" name="description" placeholder="Product Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price" class="col-sm-3 control-label">Product Price</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="product-price" name="price" placeholder="Product Price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-availability" class="col-sm-3 control-label">Product Availability</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="product-availability"  name="product-availability">
+                                    <option value="1" selected="selected">Available</option>
+                                    <option value="0">Not Available</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-image" class="col-sm-3 control-label">Product Image</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control" id="product-image" name="prodImage">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Add Product</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!-- End Page Content  -->
+
+<!-- Start Footer Content  -->
+<?php include ("../includes/templates/admin/footer.html");?>
+<!-- End Footer Content  -->

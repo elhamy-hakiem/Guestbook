@@ -1,0 +1,93 @@
+<!-- Start header Content  -->
+    <?php include ("../includes/templates/admin/header.html");?>
+<!-- End header Content  -->
+
+        <!-- Start Sidebar Content  -->
+        <?php include ("../includes/templates/admin/sidebar.html");?>
+        <!-- End Sidebar Content  -->
+
+        <!-- Start Page Content  -->
+        <div class="admin-panel__content">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-header">
+                        <h1>Edit User</h1>
+                    </div>
+
+            <!-- Select All Data Depend On This ID  -->
+            <?php
+                $userData = $userObject ->getUser($userid);
+                if(empty($userData))
+                {
+                    echo ' <div class="alert alert-danger">
+                        <p>This User is Not Exist!</p>
+                    </div>';
+                }
+                else
+                {
+            ?>
+                    <!-- Start Show Alert Messages  -->
+                    <?php 
+                        if(! empty($editErrors)) 
+                        { 
+                            foreach($editErrors as $error)
+                            {
+                                echo ' <div class="alert alert-danger">
+                                            <p>'.$error.'</p>
+                                        </div>';
+                            }
+                        }
+                    ?>
+                    <?php 
+                    if(! empty($successMsg)) 
+                    { 
+                        echo ' <div class="alert alert-success">
+                                    <p>'.$successMsg.'</p>
+                                </div>';
+                    }
+        ?>
+
+                </div>
+                <div class="col-md-8">
+                    <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'].'?action=Edit&userid='.$userid;?>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="full-name" class="col-sm-3 control-label">Full Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="full-name" name="fullName" value="<?php echo $userData['fullName'];?>" placeholder="Full Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-sm-3 control-label">Username</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="username" name="username" value="<?php echo $userData['username'];?>" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-address" class="col-sm-3 control-label">Email Address</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="email-address"  name="email" value="<?php echo $userData['email'];?>" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-sm-3 control-label">Password</label>
+                            <div class="col-sm-9">
+                                <input type="hidden" value="<?php echo $userData['password'];?>"  name="oldpassword">
+                                <input type="password" class="form-control" id="password" name="newpassword" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-user"></i> Update User</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <?php }?>
+            </div>
+        </div>
+        <!-- End Page Content  -->
+
+<!-- Start Footer Content  -->
+<?php include ("../includes/templates/admin/footer.html");?>
+<!-- End Footer Content  -->

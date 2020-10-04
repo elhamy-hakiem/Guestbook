@@ -1,0 +1,82 @@
+<!-- Start header Content  -->
+<?php include ("../includes/templates/admin/header.html");?>
+<!-- End header Content  -->
+
+        <!-- Start Sidebar Content  -->
+        <?php include ("../includes/templates/admin/sidebar.html");?>
+        <!-- End Sidebar Content  -->
+
+        <!-- Start Page Content  -->
+        <div class="admin-panel__content">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-header">
+                        <h1>Edit Message</h1>
+                    </div>
+
+                    <!-- Select All Data Depend On This ID  -->
+                    <?php
+                        $messageInfo = $messageObj ->getMessage($msgid);
+                        if(empty($messageInfo))
+                        {
+                            echo ' <div class="alert alert-danger">
+                                <p>This Message is Not Exist!</p>
+                            </div>';
+                        }
+                        else
+                        {
+                    ?>
+                    <!-- Start Show Alert Messages  -->
+                    <?php 
+                        if(! empty($editErrors)) 
+                        { 
+                            foreach($editErrors as $error)
+                            {
+                                echo ' <div class="alert alert-danger">
+                                            <p>'.$error.'</p>
+                                        </div>';
+                            }
+                        }
+                    ?>
+                    <?php 
+                    if(! empty($successMsg)) 
+                    { 
+                        echo ' <div class="alert alert-success">
+                                    <p>'.$successMsg.'</p>
+                                </div>';
+                    }
+                    ?>
+
+                </div>
+                <div class="col-md-12">
+                    <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'].'?action=Edit&msgid='.$msgid;?>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label">Message Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="title" name="title" value="<?php echo $messageInfo['title']?>" placeholder="Message Title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-3 control-label">Message Content</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="6" id="content" name="content" placeholder="Message Content"><?php echo $messageInfo['content']?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-danger"><i class="fa fa-comments"></i> Update Message</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            <?php }?>
+            </div>
+        </div>
+        <!-- End Page Content  -->
+
+<!-- Start Footer Content  -->
+<?php include ("../includes/templates/admin/footer.html");?>
+<!-- End Footer Content  -->

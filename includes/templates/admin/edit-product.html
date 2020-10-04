@@ -1,0 +1,105 @@
+<!-- Start header Content  -->
+<?php include ("../includes/templates/admin/header.html");?>
+<!-- End header Content  -->
+
+        <!-- Start Sidebar Content  -->
+        <?php include ("../includes/templates/admin/sidebar.html");?>
+        <!-- End Sidebar Content  -->
+
+        <!-- Start Page Content  -->
+        <div class="admin-panel__content">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-header">
+                        <h1>Edit Product</h1>
+                    </div>
+
+            <!-- Select All Data Depend On This ID  -->
+            <?php
+                $productInfo = $productObject ->getProduct($productid);
+                if(empty($productInfo))
+                {
+                    echo ' <div class="alert alert-danger">
+                        <p>This Product is Not Exist!</p>
+                    </div>';
+                }
+                else
+                {
+            ?>
+                    <!-- Start Show Alert Messages  -->
+                    <?php 
+                        if(! empty($editErrors)) 
+                        { 
+                            foreach($editErrors as $error)
+                            {
+                                echo ' <div class="alert alert-danger">
+                                            <p>'.$error.'</p>
+                                        </div>';
+                            }
+                        }
+                    ?>
+                    <?php 
+                    if(! empty($successMsg)) 
+                    { 
+                        echo ' <div class="alert alert-success">
+                                    <p>'.$successMsg.'</p>
+                                </div>';
+                    }
+        ?>
+
+                </div>
+                <div class="col-md-8">
+                    <form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'].'?action=Edit&productid='.$productid;?>" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="product-title" class="col-sm-3 control-label">Product Title</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="product-title" name="title" value="<?php echo $productInfo['title'];?>" placeholder="Product Title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-desc" class="col-sm-3 control-label">Product Description</label>
+                            <div class="col-sm-9">
+                                <textarea rows="6" class="form-control" id="product-desc" name="description" placeholder="Product Description"><?php echo $productInfo['description'];?></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price" class="col-sm-3 control-label">Product Price</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="product-price" name="price" value="<?php echo $productInfo['price'];?>" placeholder="Product Price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-availability" class="col-sm-3 control-label">Product Availability</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="product-availability"  name="product-availability">
+                                    <option value="1" <?php if($productInfo['available'] == 1){echo "selected='selected'";}?>>Available</option>
+                                    <option value="0" <?php if($productInfo['available'] == 0){echo "selected='selected'";}?>>Not Available</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-image" class="col-sm-3 control-label">Product Image</label>
+                            <div class="col-sm-9">
+                                <input type="hidden" value="<?php echo $productInfo['image'];?>"  name="oldImage">
+                                <input type="file" class="form-control" id="product-image" name="prodImage">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Edit Product</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <img style="width: 315px; height: 200px; border: 2px solid #24968a;" src="../uploads/images/<?php echo $productInfo['image']; ?>" alt="">
+                </div>
+            <?php }?>
+            </div>
+        </div>
+        <!-- End Page Content  -->
+
+<!-- Start Footer Content  -->
+<?php include ("../includes/templates/admin/footer.html");?>
+<!-- End Footer Content  -->

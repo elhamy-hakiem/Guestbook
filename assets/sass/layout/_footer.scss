@@ -1,0 +1,15 @@
+.footer{
+    background-color: #264653;
+    color: #fff;
+    padding: 15px 0;
+
+    .copyrights{
+        a{
+            color: #03cea4;
+
+            &:hover{
+                color: #2a9d8f;
+            }
+        }
+    }
+}
